@@ -1,0 +1,791 @@
+<html lang="zh-CN"><head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>长春定阳气象仪器有限公司</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700&display=swap');
+        
+        body {
+            font-family: 'Noto Sans SC', sans-serif;
+            color: #333;
+            background-color: #f9f9f9;
+        }
+        
+        .hero {
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            height: 100vh;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><rect width="100" height="100" fill="none" stroke="rgba(255,255,255,0.1)" stroke-width="2"/></svg>');
+            opacity: 0.3;
+        }
+        
+        .nav-link {
+            position: relative;
+            transition: all 0.3s ease;
+        }
+        
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: #fff;
+            transition: width 0.3s ease;
+        }
+        
+        .nav-link:hover::after {
+            width: 100%;
+        }
+        
+        .product-card {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .product-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+        
+        .parameter-table th {
+            background-color: #f3f4f6;
+        }
+        
+        .parameter-table tr:nth-child(even) {
+            background-color: #f9fafb;
+        }
+        
+        .parameter-table tr:hover {
+            background-color: #f3f4f6;
+        }
+        
+        .application-icon {
+            transition: transform 0.3s ease;
+        }
+        
+        .application-card:hover .application-icon {
+            transform: scale(1.1);
+        }
+        
+        .footer {
+            background-color: #1e3c72;
+            color: #fff;
+        }
+        
+        .footer-link {
+            color: #a0aec0;
+            transition: color 0.3s ease;
+        }
+        
+        .footer-link:hover {
+            color: #fff;
+        }
+        
+        .social-icon {
+            transition: transform 0.3s ease, color 0.3s ease;
+        }
+        
+        .social-icon:hover {
+            transform: translateY(-3px);
+            color: #fff;
+        }
+        
+        /* 响应式调整 */
+        @media (max-width: 768px) {
+            .hero {
+                height: auto;
+                padding-top: 100px;
+                padding-bottom: 100px;
+            }
+            
+            .mobile-menu {
+                display: none;
+            }
+            
+            .mobile-menu.active {
+                display: flex;
+            }
+        }
+        
+        /* 滚动动画 */
+        .scroll-reveal {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+        
+        .scroll-reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        /* 加载动画 */
+        .loader {
+            border: 5px solid #f3f3f3;
+            border-top: 5px solid #2a5298;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            animation: spin 1s linear infinite;
+            margin: 20px auto;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+    <!-- 导航栏 -->
+    <nav class="bg-blue-900 text-white fixed w-full z-50">
+        <div class="container mx-auto px-4 py-3">
+            <div class="flex justify-between items-center">
+                <div class="flex items-center">
+                    <i class="fas fa-cloud-sun text-2xl mr-2"></i>
+                    <span class="text-xl font-bold">长春定阳气象仪器</span>
+                </div>
+                
+                <!-- 桌面导航 -->
+                <div class="hidden md:flex space-x-8">
+                    <a href="#home" class="nav-link">首页</a>
+                    <a href="#about" class="nav-link">关于我们</a>
+                    <a href="#products" class="nav-link">产品中心</a>
+                    <a href="#applications" class="nav-link">应用场景</a>
+                    <a href="#contact" class="nav-link">联系我们</a>
+                </div>
+                
+                <!-- 移动端菜单按钮 -->
+                <div class="md:hidden">
+                    <button id="menu-toggle" class="focus:outline-none">
+                        <i class="fas fa-bars text-2xl"></i>
+                    </button>
+                </div>
+            </div>
+            
+            <!-- 移动端导航菜单 -->
+            <div id="mobile-menu" class="mobile-menu flex-col space-y-4 py-4 mt-2">
+                <a href="#home" class="block">首页</a>
+                <a href="#about" class="block">关于我们</a>
+                <a href="#products" class="block">产品中心</a>
+                <a href="#applications" class="block">应用场景</a>
+                <a href="#contact" class="block">联系我们</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- 英雄区域 -->
+    <section id="home" class="hero flex items-center justify-center">
+        <div class="container mx-auto px-4 text-center text-white relative z-10">
+            <h1 class="text-4xl md:text-6xl font-bold mb-4">长春定阳气象仪器有限公司</h1>
+            <p class="text-xl md:text-2xl mb-8">专业研发生产太阳跟踪器和自动气象站</p>
+            <div class="flex justify-center space-x-4">
+                <a href="#products" class="bg-white text-blue-900 px-6 py-3 rounded-lg font-medium hover:bg-blue-100 transition duration-300">
+                    <i class="fas fa-search mr-2"></i>了解产品
+                </a>
+                <a href="#contact" class="bg-transparent border-2 border-white text-white px-6 py-3 rounded-lg font-medium hover:bg-white hover:text-blue-900 transition duration-300">
+                    <i class="fas fa-envelope mr-2"></i>联系我们
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- 关于我们 -->
+    <section id="about" class="py-16 bg-white">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-bold mb-2">关于我们</h2>
+                <div class="w-24 h-1 bg-blue-900 mx-auto"></div>
+            </div>
+            
+            <div class="grid md:grid-cols-2 gap-8 items-center">
+                <div class="scroll-reveal">
+                    <h3 class="text-2xl font-bold mb-4 text-blue-900">公司简介</h3>
+                    <p class="mb-4 text-gray-700">长春定阳气象仪器有限公司是一家专业从事气象仪器研发、生产和销售的高科技企业。公司位于长春市高新技术产业开发区，拥有一支高素质的研发团队和先进的生产设备。</p>
+                    <p class="mb-4 text-gray-700">我们致力于为客户提供高质量的太阳跟踪器和自动气象站等气象观测设备，产品广泛应用于气候、气象监测、太阳能利用、农业林业、生态研究、建筑材料检验、国防、航空航天等领域。</p>
+                    <p class="text-gray-700">公司秉承"科技创新、质量第一、服务至上"的经营理念，不断提升产品性能和服务质量，为客户创造更大的价值。</p>
+                </div>
+                
+                <div class="scroll-reveal">
+                    <div class="bg-blue-50 p-6 rounded-lg">
+                        <h3 class="text-2xl font-bold mb-4 text-blue-900">我们的优势</h3>
+                        <ul class="space-y-3">
+                            <li class="flex items-start">
+                                <i class="fas fa-check-circle text-green-500 mt-1 mr-2"></i>
+                                <span>自主研发团队，拥有多项专利技术</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-check-circle text-green-500 mt-1 mr-2"></i>
+                                <span>严格的质量管理体系，确保产品质量</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-check-circle text-green-500 mt-1 mr-2"></i>
+                                <span>完善的售后服务体系，及时响应客户需求</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-check-circle text-green-500 mt-1 mr-2"></i>
+                                <span>产品广泛应用于多个领域，经验丰富</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-check-circle text-green-500 mt-1 mr-2"></i>
+                                <span>持续创新，不断提升产品性能</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 产品中心 -->
+    <section id="products" class="py-16 bg-gray-50">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-bold mb-2">产品中心</h2>
+                <div class="w-24 h-1 bg-blue-900 mx-auto"></div>
+                <p class="mt-4 text-gray-600">我们提供高质量的气象观测设备，满足不同领域的需求</p>
+            </div>
+            
+            <!-- 产品1：太阳跟踪器 -->
+            <div class="mb-16">
+                <div class="bg-white rounded-lg shadow-lg overflow-hidden">
+                    <div class="grid md:grid-cols-2">
+                        <div class="p-8 scroll-reveal">
+                            <h3 class="text-2xl font-bold mb-4 text-blue-900">SA-500 型全自动太阳跟踪器</h3>
+                            <p class="mb-4 text-gray-700">SA-500型全自动太阳跟踪器是本公司自主研发生产的全天候太阳指向平台，主体采用集成一体的硬铝合金外壳，并配合铝合金支架结构，可搭载太阳直射辐射计、总辐射计等，用于对太阳辐射的测量，也可搭载天空相机日冕仪等设备，用于对太阳及天空云彩的观测。</p>
+                            <p class="mb-6 text-gray-700">在气候、气象的监测、太阳能利用、农业林业、生态研究、建筑材料检验、国防、航空航天等领域有着重要的应用。</p>
+                            
+                            <button id="show-parameters1" class="bg-blue-900 text-white px-6 py-2 rounded-lg font-medium hover:bg-blue-800 transition duration-300">
+                                <i class="fas fa-table mr-2"></i>查看技术参数
+                            </button>
+                        </div>
+                        
+                        <div class="bg-gray-100 flex items-center justify-center p-4 scroll-reveal">
+                            <div class="grid grid-cols-2 gap-4">
+                                <div class="bg-white p-2 rounded-lg shadow">
+                                    <img src="https://p11-flow-imagex-download-sign.byteimg.com/tos-cn-i-a9rns2rl98/0a2ab3bb178d446f8642c418171c5b1d.png~tplv-a9rns2rl98-24:720:720.png?rcl=20251224132919A0930A8A856C9CB895B6&amp;rk3s=8e244e95&amp;rrcfp=8a172a1a&amp;x-expires=1767158960&amp;x-signature=GSb0M4hyfBL5cdzesyLPTMS9AuQ%3D" alt="太阳跟踪器" class="w-full h-auto rounded">
+                                </div>
+                                <div class="bg-white p-2 rounded-lg shadow">
+                                    <img src="https://p11-flow-imagex-download-sign.byteimg.com/tos-cn-i-a9rns2rl98/cc8567fb277a4499af8ee1e287b33b5e.png~tplv-a9rns2rl98-24:720:720.png?rcl=20251224132919A0930A8A856C9CB895B6&amp;rk3s=8e244e95&amp;rrcfp=8a172a1a&amp;x-expires=1767158960&amp;x-signature=GJ0LZCOdfB0RokFofq%2BnDkatU0w%3D" alt="太阳跟踪器" class="w-full h-auto rounded">
+                                </div>
+                                <div class="bg-white p-2 rounded-lg shadow">
+                                    <img src="https://p11-flow-imagex-download-sign.byteimg.com/tos-cn-i-a9rns2rl98/c69efb2f3d3b4f8d96af0f5092478cd8.png~tplv-a9rns2rl98-24:720:720.png?rcl=20251224132919A0930A8A856C9CB895B6&amp;rk3s=8e244e95&amp;rrcfp=8a172a1a&amp;x-expires=1767158960&amp;x-signature=WAEnxxUP5H1V9N%2FxeQ11IA364sg%3D" alt="太阳跟踪器" class="w-full h-auto rounded">
+                                </div>
+                                <div class="bg-white p-2 rounded-lg shadow">
+                                    <img src="https://p3-flow-imagex-sign.byteimg.com/tos-cn-i-a9rns2rl98/rc/pc/code_assistant/f4dff5e638d549eb9b539f33f4525e32~tplv-a9rns2rl98-image.image?rcl=202512241340367715872FC4F4E1A6D80A&amp;rk3s=8e244e95&amp;rrcfp=e75484ac&amp;x-expires=1767159638&amp;x-signature=Ohy%2FanEg%2FuOiCk93nJ4%2BTGmzhqI%3D" alt="太阳跟踪器" class="w-full h-auto rounded">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- 技术参数表格 -->
+                    <div id="parameters1" class="hidden p-8 border-t border-gray-200">
+                        <h4 class="text-xl font-bold mb-4 text-blue-900">技术参数</h4>
+                        <div class="overflow-x-auto">
+                            <table class="w-full parameter-table">
+                                <thead>
+                                    <tr>
+                                        <th class="px-4 py-2 text-left">参数</th>
+                                        <th class="px-4 py-2 text-left">规格</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td class="px-4 py-2">跟踪误差</td>
+                                        <td class="px-4 py-2">&lt;0.02°</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="px-4 py-2">角分辨率</td>
+                                        <td class="px-4 py-2">0.005°</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="px-4 py-2">负载(平衡)</td>
+                                        <td class="px-4 py-2">&lt;15kg</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="px-4 py-2">旋转角度</td>
+                                        <td class="px-4 py-2">方位角0~360°;俯仰角0~90°</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="px-4 py-2">转动过保护</td>
+                                        <td class="px-4 py-2">机械限位</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="px-4 py-2">供电</td>
+                                        <td class="px-4 py-2">DC24V ，3A</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="px-4 py-2">工作功耗</td>
+                                        <td class="px-4 py-2">&lt;20W</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="px-4 py-2">待机功耗</td>
+                                        <td class="px-4 py-2">&lt;1W</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="px-4 py-2">工作温度</td>
+                                        <td class="px-4 py-2">-30℃~50°C</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="px-4 py-2">防护等级</td>
+                                        <td class="px-4 py-2">IP65</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="px-4 py-2">转台尺寸</td>
+                                        <td class="px-4 py-2">249mmx230mmx302mm</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="px-4 py-2">整机重量</td>
+                                        <td class="px-4 py-2">约18kg(跟踪器）</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 产品2：自动气象站 -->
+            <div>
+                <div class="bg-white rounded-lg shadow-lg overflow-hidden">
+                    <div class="grid md:grid-cols-2">
+                        <div class="p-8 scroll-reveal">
+                            <h3 class="text-2xl font-bold mb-4 text-blue-900">自动气象站</h3>
+                            <p class="mb-4 text-gray-700">自动气象站是一种能自动观测、存储和传输气象观测数据的设备主要由太阳跟踪器、风速风向传感器、温湿度传感器、辐射计、数据采集器、无线通讯模块、电源、三脚架等组成。</p>
+                            <p class="mb-4 text-gray-700">太阳跟踪器可搭载太阳直射辐射计和总辐射计，用于测量太阳直射辐射、散射辐射及总辐射。风速、风向传感器和温湿度传感器安装在配套支架上，用于测量现场的风速风向及环境温湿度。</p>
+                            <p class="mb-6 text-gray-700">辐射计和传感器均通过线缆与数据采集器相连，并将电信号传送给数据采集器，数据采集器对收集的电信号进行处理，获得测量数据，并将数据存储，同时通过无线通信模块务数据输出到远程计算机上。</p>
+                            
+                            <button id="show-parameters2" class="bg-blue-900 text-white px-6 py-2 rounded-lg font-medium hover:bg-blue-800 transition duration-300">
+                                <i class="fas fa-table mr-2"></i>查看技术参数
+                            </button>
+                        </div>
+                        
+                        <div class="bg-gray-100 flex items-center justify-center p-4 scroll-reveal">
+                            <div class="grid grid-cols-2 gap-4">
+                                <div class="bg-white p-2 rounded-lg shadow">
+                                    <img src="https://p11-flow-imagex-download-sign.byteimg.com/tos-cn-i-a9rns2rl98/292259c282da4a2e960b41afc626f005.png~tplv-a9rns2rl98-24:720:720.png?rcl=20251224132919A0930A8A856C9CB895B6&amp;rk3s=8e244e95&amp;rrcfp=8a172a1a&amp;x-expires=1767158960&amp;x-signature=zFGiLqqSFvkcsYCudNsQ8IYnjbs%3D" alt="自动气象站" class="w-full h-auto rounded">
+                                </div>
+                                <div class="bg-white p-2 rounded-lg shadow">
+                                    <img src="https://p11-flow-imagex-download-sign.byteimg.com/tos-cn-i-a9rns2rl98/c69efb2f3d3b4f8d96af0f5092478cd8.png~tplv-a9rns2rl98-24:720:720.png?rcl=20251224132919A0930A8A856C9CB895B6&amp;rk3s=8e244e95&amp;rrcfp=8a172a1a&amp;x-expires=1767158960&amp;x-signature=WAEnxxUP5H1V9N%2FxeQ11IA364sg%3D" alt="自动气象站" class="w-full h-auto rounded">
+                                </div>
+                                <div class="bg-white p-2 rounded-lg shadow">
+                                    <img src="https://p11-flow-imagex-download-sign.byteimg.com/tos-cn-i-a9rns2rl98/369c129be7d54c14aee0036ab75fc917.png~tplv-a9rns2rl98-24:720:720.png?rcl=20251224132919A0930A8A856C9CB895B6&amp;rk3s=8e244e95&amp;rrcfp=8a172a1a&amp;x-expires=1767158960&amp;x-signature=MvyVcXjZwPX3Bzaj8BjZCd%2FFJQg%3D" alt="自动气象站" class="w-full h-auto rounded">
+                                </div>
+                                <div class="bg-white p-2 rounded-lg shadow">
+                                    <img src="https://p3-flow-imagex-sign.byteimg.com/tos-cn-i-a9rns2rl98/rc/pc/code_assistant/3a4ca3b3fbd84ca4afac6f9fd9c8bac9~tplv-a9rns2rl98-image.image?rcl=202512241342344870EBA0E99629CC8B90&amp;rk3s=8e244e95&amp;rrcfp=e75484ac&amp;x-expires=1767159759&amp;x-signature=rvr%2FpVfGJtpkSoKmaC%2BnM%2F74OQc%3D" alt="自动气象站" class="w-full h-auto rounded">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- 技术参数表格 -->
+                    <div id="parameters2" class="hidden p-8 border-t border-gray-200">
+                        <h4 class="text-xl font-bold mb-4 text-blue-900">技术参数</h4>
+                        <div class="overflow-x-auto">
+                            <table class="w-full parameter-table">
+                                <thead>
+                                    <tr>
+                                        <th class="px-4 py-2 text-left">参数</th>
+                                        <th class="px-4 py-2 text-left">规格</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td class="px-4 py-2">测量要素</td>
+                                        <td class="px-4 py-2">太阳辐射、风速、风向、温度、湿度等</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="px-4 py-2">数据采集器</td>
+                                        <td class="px-4 py-2">工业级数据采集器，支持多种传感器接入</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="px-4 py-2">通讯方式</td>
+                                        <td class="px-4 py-2">无线通讯（4G/5G/WiFi），有线通讯（RS485/RS232）</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="px-4 py-2">供电方式</td>
+                                        <td class="px-4 py-2">太阳能电池板+蓄电池，交流供电</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="px-4 py-2">数据存储</td>
+                                        <td class="px-4 py-2">本地存储≥10000条，支持远程数据传输</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="px-4 py-2">采样频率</td>
+                                        <td class="px-4 py-2">可设置，默认1次/分钟</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="px-4 py-2">工作温度</td>
+                                        <td class="px-4 py-2">-40℃~60°C</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="px-4 py-2">防护等级</td>
+                                        <td class="px-4 py-2">IP65</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="px-4 py-2">安装方式</td>
+                                        <td class="px-4 py-2">三脚架安装，地面安装</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="px-4 py-2">系统功耗</td>
+                                        <td class="px-4 py-2">&lt;30W</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 应用场景 -->
+    <section id="applications" class="py-16 bg-white">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-bold mb-2">应用场景</h2>
+                <div class="w-24 h-1 bg-blue-900 mx-auto"></div>
+                <p class="mt-4 text-gray-600">我们的产品广泛应用于多个领域，为客户提供专业的解决方案</p>
+            </div>
+            
+            <div class="grid md:grid-cols-3 gap-8">
+                <!-- 应用场景1 -->
+                <div class="bg-gray-50 rounded-lg p-6 shadow-md application-card scroll-reveal">
+                    <div class="bg-blue-900 text-white w-16 h-16 rounded-full flex items-center justify-center mb-4 mx-auto">
+                        <i class="fas fa-cloud-sun text-2xl application-icon"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-2 text-center">气候、气象监测</h3>
+                    <p class="text-gray-700 text-center">用于气象部门、科研机构进行长期的气候观测和气象数据收集，为气候研究和天气预报提供基础数据。</p>
+                </div>
+                
+                <!-- 应用场景2 -->
+                <div class="bg-gray-50 rounded-lg p-6 shadow-md application-card scroll-reveal">
+                    <div class="bg-blue-900 text-white w-16 h-16 rounded-full flex items-center justify-center mb-4 mx-auto">
+                        <i class="fas fa-solar-panel text-2xl application-icon"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-2 text-center">太阳能利用</h3>
+                    <p class="text-gray-700 text-center">用于太阳能电站、太阳能热水器等太阳能利用设备的性能测试和优化，提高太阳能利用效率。</p>
+                </div>
+                
+                <!-- 应用场景3 -->
+                <div class="bg-gray-50 rounded-lg p-6 shadow-md application-card scroll-reveal">
+                    <div class="bg-blue-900 text-white w-16 h-16 rounded-full flex items-center justify-center mb-4 mx-auto">
+                        <i class="fas fa-seedling text-2xl application-icon"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-2 text-center">农业林业</h3>
+                    <p class="text-gray-700 text-center">用于农业、林业领域的光照监测、作物生长环境监测，为精准农业提供数据支持。</p>
+                </div>
+                
+                <!-- 应用场景4 -->
+                <div class="bg-gray-50 rounded-lg p-6 shadow-md application-card scroll-reveal">
+                    <div class="bg-blue-900 text-white w-16 h-16 rounded-full flex items-center justify-center mb-4 mx-auto">
+                        <i class="fas fa-leaf text-2xl application-icon"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-2 text-center">生态研究</h3>
+                    <p class="text-gray-700 text-center">用于生态系统研究、环境监测，为生态保护和环境治理提供科学依据。</p>
+                </div>
+                
+                <!-- 应用场景5 -->
+                <div class="bg-gray-50 rounded-lg p-6 shadow-md application-card scroll-reveal">
+                    <div class="bg-blue-900 text-white w-16 h-16 rounded-full flex items-center justify-center mb-4 mx-auto">
+                        <i class="fas fa-building text-2xl application-icon"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-2 text-center">建筑材料检验</h3>
+                    <p class="text-gray-700 text-center">用于建筑材料的老化测试、耐候性测试，评估材料在自然环境中的使用寿命。</p>
+                </div>
+                
+                <!-- 应用场景6 -->
+                <div class="bg-gray-50 rounded-lg p-6 shadow-md application-card scroll-reveal">
+                    <div class="bg-blue-900 text-white w-16 h-16 rounded-full flex items-center justify-center mb-4 mx-auto">
+                        <i class="fas fa-rocket text-2xl application-icon"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-2 text-center">国防、航空航天</h3>
+                    <p class="text-gray-700 text-center">用于国防、航空航天领域的环境监测、设备测试，确保设备在极端环境下的可靠性。</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 联系我们 -->
+    <section id="contact" class="py-16 bg-gray-50">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-bold mb-2">联系我们</h2>
+                <div class="w-24 h-1 bg-blue-900 mx-auto"></div>
+                <p class="mt-4 text-gray-600">如果您对我们的产品感兴趣，或者有任何问题，请随时联系我们</p>
+            </div>
+            
+            <div class="grid md:grid-cols-2 gap-8">
+                <!-- 联系信息 -->
+                <div class="bg-white rounded-lg shadow-md p-8 scroll-reveal">
+                    <h3 class="text-2xl font-bold mb-6 text-blue-900">联系方式</h3>
+                    
+                    <div class="space-y-4">
+                        <div class="flex items-start">
+                            <div class="bg-blue-900 text-white w-10 h-10 rounded-full flex items-center justify-center mr-4 flex-shrink-0">
+                                <i class="fas fa-map-marker-alt"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold mb-1">公司地址</h4>
+                                <p class="text-gray-700">长春市高新技术产业开发区</p>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-start">
+                            <div class="bg-blue-900 text-white w-10 h-10 rounded-full flex items-center justify-center mr-4 flex-shrink-0">
+                                <i class="fas fa-phone-alt"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold mb-1">联系电话</h4>
+                                <p class="text-gray-700">13756152857</p>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-start">
+                            <div class="bg-blue-900 text-white w-10 h-10 rounded-full flex items-center justify-center mr-4 flex-shrink-0">
+                                <i class="fas fa-envelope"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold mb-1">电子邮箱</h4>
+                                <p class="text-gray-700">yangming@163.com</p>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-start">
+                            <div class="bg-blue-900 text-white w-10 h-10 rounded-full flex items-center justify-center mr-4 flex-shrink-0">
+                                <i class="fas fa-clock"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold mb-1">工作时间</h4>
+                                <p class="text-gray-700">周一至周五: 8:00 - 17:00</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="mt-8">
+                        <h4 class="font-bold mb-3">关注我们</h4>
+                        <div class="flex space-x-4">
+                            <a href="#" class="bg-blue-900 text-white w-10 h-10 rounded-full flex items-center justify-center social-icon">
+                                <i class="fab fa-weixin"></i>
+                            </a>
+                            <a href="#" class="bg-blue-900 text-white w-10 h-10 rounded-full flex items-center justify-center social-icon">
+                                <i class="fab fa-weibo"></i>
+                            </a>
+                            <a href="#" class="bg-blue-900 text-white w-10 h-10 rounded-full flex items-center justify-center social-icon">
+                                <i class="fab fa-linkedin"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 留言表单 -->
+                <div class="bg-white rounded-lg shadow-md p-8 scroll-reveal">
+                    <h3 class="text-2xl font-bold mb-6 text-blue-900">在线留言</h3>
+                    
+                    <form id="contact-form">
+                        <div class="mb-4">
+                            <label for="name" class="block text-gray-700 font-medium mb-2">姓名</label>
+                            <input type="text" id="name" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-900" placeholder="请输入您的姓名">
+                        </div>
+                        
+                        <div class="mb-4">
+                            <label for="email" class="block text-gray-700 font-medium mb-2">电子邮箱</label>
+                            <input type="email" id="email" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-900" placeholder="请输入您的电子邮箱">
+                        </div>
+                        
+                        <div class="mb-4">
+                            <label for="phone" class="block text-gray-700 font-medium mb-2">联系电话</label>
+                            <input type="tel" id="phone" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-900" placeholder="请输入您的联系电话">
+                        </div>
+                        
+                        <div class="mb-4">
+                            <label for="subject" class="block text-gray-700 font-medium mb-2">主题</label>
+                            <select id="subject" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-900">
+                                <option value="">请选择留言主题</option>
+                                <option value="product">产品咨询</option>
+                                <option value="price">价格咨询</option>
+                                <option value="cooperation">合作洽谈</option>
+                                <option value="other">其他</option>
+                            </select>
+                        </div>
+                        
+                        <div class="mb-6">
+                            <label for="message" class="block text-gray-700 font-medium mb-2">留言内容</label>
+                            <textarea id="message" rows="5" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-900" placeholder="请输入您的留言内容"></textarea>
+                        </div>
+                        
+                        <button type="submit" class="w-full bg-blue-900 text-white py-3 rounded-lg font-medium hover:bg-blue-800 transition duration-300">
+                            <i class="fas fa-paper-plane mr-2"></i>提交留言
+                        </button>
+                    </form>
+                    
+                    <div id="form-success" class="hidden mt-4 p-4 bg-green-100 text-green-700 rounded-lg">
+                        <i class="fas fa-check-circle mr-2"></i>
+                        留言提交成功，我们会尽快与您联系！
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 页脚 -->
+    <footer class="footer py-8">
+        <div class="container mx-auto px-4">
+            <div class="grid md:grid-cols-4 gap-8">
+                <div>
+                    <h4 class="text-lg font-bold mb-4">长春定阳气象仪器有限公司</h4>
+                    <p class="text-gray-400">专业研发生产太阳跟踪器和自动气象站，为客户提供高质量的气象观测设备。</p>
+                </div>
+                
+                <div>
+                    <h4 class="text-lg font-bold mb-4">产品中心</h4>
+                    <ul class="space-y-2">
+                        <li><a href="#products" class="footer-link">SA-500 型全自动太阳跟踪器</a></li>
+                        <li><a href="#products" class="footer-link">自动气象站</a></li>
+                        <li><a href="#products" class="footer-link">气象传感器</a></li>
+                        <li><a href="#products" class="footer-link">数据采集系统</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h4 class="text-lg font-bold mb-4">关于我们</h4>
+                    <ul class="space-y-2">
+                        <li><a href="#about" class="footer-link">公司简介</a></li>
+                        <li><a href="#" class="footer-link">发展历程</a></li>
+                        <li><a href="#" class="footer-link">企业文化</a></li>
+                        <li><a href="#" class="footer-link">荣誉资质</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h4 class="text-lg font-bold mb-4">联系我们</h4>
+                    <ul class="space-y-2">
+                        <li class="flex items-center">
+                            <i class="fas fa-map-marker-alt mr-2 text-gray-400"></i>
+                            <span class="footer-link">长春市高新技术产业开发区</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-phone-alt mr-2 text-gray-400"></i>
+                            <span class="footer-link">13756158257</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-envelope mr-2 text-gray-400"></i>
+                            <span class="footer-link">@</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="border-t border-gray-800 mt-8 pt-6 text-center text-gray-400">
+                <p>© 2025 长春定阳气象仪器有限公司 版权所有</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // 移动端菜单切换
+        document.getElementById('menu-toggle').addEventListener('click', function() {
+            document.getElementById('mobile-menu').classList.toggle('active');
+        });
+        
+        // 平滑滚动
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                
+                // 关闭移动端菜单
+                document.getElementById('mobile-menu').classList.remove('active');
+                
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+        
+        // 技术参数表格切换
+        document.getElementById('show-parameters1').addEventListener('click', function() {
+            const parameters = document.getElementById('parameters1');
+            if (parameters.classList.contains('hidden')) {
+                parameters.classList.remove('hidden');
+                this.innerHTML = '<i class="fas fa-times mr-2"></i>隐藏技术参数';
+            } else {
+                parameters.classList.add('hidden');
+                this.innerHTML = '<i class="fas fa-table mr-2"></i>查看技术参数';
+            }
+        });
+        
+        document.getElementById('show-parameters2').addEventListener('click', function() {
+            const parameters = document.getElementById('parameters2');
+            if (parameters.classList.contains('hidden')) {
+                parameters.classList.remove('hidden');
+                this.innerHTML = '<i class="fas fa-times mr-2"></i>隐藏技术参数';
+            } else {
+                parameters.classList.add('hidden');
+                this.innerHTML = '<i class="fas fa-table mr-2"></i>查看技术参数';
+            }
+        });
+        
+        // 表单提交
+        document.getElementById('contact-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // 表单验证
+            const name = document.getElementById('name').value;
+            const email = document.getElementById('email').value;
+            const phone = document.getElementById('phone').value;
+            const subject = document.getElementById('subject').value;
+            const message = document.getElementById('message').value;
+            
+            if (!name || !email || !phone || !subject || !message) {
+                alert('请填写所有必填字段');
+                return;
+            }
+            
+            // 模拟表单提交
+            const formSuccess = document.getElementById('form-success');
+            formSuccess.classList.remove('hidden');
+            
+            // 重置表单
+            this.reset();
+            
+            // 3秒后隐藏成功提示
+            setTimeout(() => {
+                formSuccess.classList.add('hidden');
+            }, 3000);
+        });
+        
+        // 滚动动画
+        function revealOnScroll() {
+            const reveals = document.querySelectorAll('.scroll-reveal');
+            
+            for (let i = 0; i < reveals.length; i++) {
+                const windowHeight = window.innerHeight;
+                const elementTop = reveals[i].getBoundingClientRect().top;
+                const elementVisible = 150;
+                
+                if (elementTop < windowHeight - elementVisible) {
+                    reveals[i].classList.add('active');
+                }
+            }
+        }
+        
+        window.addEventListener('scroll', revealOnScroll);
+        revealOnScroll(); // 初始检查
+    </script>
+
+</body></html>
